@@ -1,23 +1,20 @@
-<!--{% extends "base.html" %}-->
-<!--{% load static %}-->
-<!--{% block page_content %}-->
-<!--<h1>Мои проекты</h1>-->
-<!--<div class="row">-->
-<!--{% for project in projects %}-->
-<!--    <div class="col-md-4">-->
-<!--      <div class="card md-2">-->
-<!--        <img class="card-img-top" src="{% static project.image %}">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">{{ project.title }}</h5>-->
-<!--          <p class="card-text">{{ project.description }}</p>-->
-<!--          <a href="{% url 'project_detail' project.pk %}"-->
-<!--            class="btn btn-primary">-->
-<!--            Подробнее-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    {% endfor %}-->
-<!--</div>-->
-<!--{% endblock %}-->
-
+{% extends "base.html" %}
+{% block page_content %}
+<div class="col-md-8 offset-md-2">
+  <h1>Блог</h1>
+  <hr>
+  {% for post in posts %}
+  <h2><a href="{% url 'blog_getail' post.pk%}">{{ post.title }}</a></h2>
+  <small>
+      {{ post.created_on.date }}
+      Категории:
+      {% for category in post.categories.all %}
+      <a href="">
+          {{ category.name }}
+      </a>
+      {% endfor %}
+  </small>
+  <p>{{ post.body | slice:":400" }}...</p>
+  {% endfor %}
+</div>
+{% endblock %}
